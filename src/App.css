@@ -12,6 +12,8 @@
   align-items: start;
 }
 
+/* Main sections */
+
 .bundle-builder,
 .review-panel {
   border: 1px solid #dedede;
@@ -20,38 +22,158 @@
 }
 
 .bundle-builder {
+  min-width: 0;
   padding: 32px;
 }
 
-.bundle-builder__header {
-  margin-bottom: 32px;
-}
-
-.bundle-builder__eyebrow {
-  margin: 0 0 8px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}
-
-.bundle-builder__header h1 {
-  margin: 0 0 12px;
-  font-size: 32px;
-  line-height: 1.2;
-}
-
-.bundle-builder__header p:last-child {
-  margin: 0;
-  color: #656565;
-  line-height: 1.6;
+.bundle-builder__mobile-header {
+  display: none;
 }
 
 .bundle-builder__steps {
-  min-height: 300px;
-  padding: 24px;
-  border-radius: 8px;
-  background-color: #f5f5f5;
+  display: grid;
+  gap: 12px;
 }
+
+/* Accordion step */
+
+.accordion-step {
+  overflow: hidden;
+  border: 1px solid #d7d7d7;
+  border-radius: 4px;
+  background-color: #ffffff;
+}
+
+.accordion-step.is-open {
+  border-color: #c8d4e8;
+  background-color: #eef4fd;
+}
+
+/* Accordion header */
+
+.accordion-step__header {
+  width: 100%;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border: 0;
+  background-color: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.accordion-step__details {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.accordion-step__number {
+  color: #767676;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.accordion-step__title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.accordion-step__icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  display: inline-block;
+  border: 1px solid #777777;
+  border-radius: 50%;
+}
+
+.accordion-step__title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Selected count and chevron */
+
+.accordion-step__status {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.accordion-step__selected {
+  color: #4f2bd9;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.accordion-step__chevron {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  display: inline-block;
+  border-right: 2px solid #4f2bd9;
+  border-bottom: 2px solid #4f2bd9;
+  transform: rotate(45deg);
+  transition: transform 160ms ease;
+}
+
+.accordion-step__chevron.is-open {
+  transform: rotate(225deg);
+}
+
+/* Accordion content */
+
+.accordion-step__panel {
+  padding: 0 16px 16px;
+}
+
+.accordion-step__content {
+  min-height: 160px;
+  padding: 24px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.45);
+}
+
+.accordion-step__placeholder {
+  margin: 0;
+  color: #656565;
+  line-height: 1.5;
+}
+
+/* Next button */
+
+.accordion-step__next {
+  min-height: 36px;
+  margin: 16px auto 0;
+  padding: 7px 16px;
+  display: block;
+  border: 1px solid #4f2bd9;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #4f2bd9;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.accordion-step__next:hover {
+  background-color: #f5f1ff;
+}
+
+.accordion-step__header:focus-visible,
+.accordion-step__next:focus-visible {
+  outline: 3px solid rgba(79, 43, 217, 0.3);
+  outline-offset: 2px;
+}
+
+/* Review panel */
 
 .review-panel {
   position: sticky;
@@ -62,6 +184,7 @@
 .review-panel h2 {
   margin: 0 0 24px;
   font-size: 22px;
+  line-height: 1.2;
 }
 
 .review-panel__content {
@@ -70,6 +193,14 @@
   border-radius: 8px;
   background-color: #f5f5f5;
 }
+
+.review-panel__content p {
+  margin: 0;
+  color: #656565;
+  line-height: 1.5;
+}
+
+/* Tablet */
 
 @media (max-width: 850px) {
   .app__layout {
@@ -81,6 +212,8 @@
   }
 }
 
+/* Mobile */
+
 @media (max-width: 600px) {
   .app {
     padding: 20px 12px;
@@ -91,7 +224,48 @@
     padding: 20px;
   }
 
-  .bundle-builder__header h1 {
-    font-size: 28px;
+  .bundle-builder__mobile-header {
+    display: block;
+    padding: 4px 0 20px;
+  }
+
+  .bundle-builder__mobile-header h1 {
+    margin: 0;
+    font-size: 26px;
+    line-height: 1.2;
+  }
+
+  .bundle-builder__steps {
+    gap: 8px;
+  }
+
+  .accordion-step__header {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .accordion-step__number {
+    font-size: 9px;
+  }
+
+  .accordion-step__title {
+    font-size: 14px;
+  }
+
+  .accordion-step__selected {
+    font-size: 11px;
+  }
+
+  .accordion-step__panel {
+    padding: 0 12px 12px;
+  }
+
+  .accordion-step__content {
+    min-height: 130px;
+    padding: 16px;
+  }
+
+  .review-panel h2 {
+    font-size: 20px;
   }
 }
