@@ -198,3 +198,32 @@
     font-size: 23px;
   }
 }
+.review-panel__save {
+  width: 100%;
+  margin-top: 10px;
+  padding: 2px;
+  border: 0;
+  background-color: transparent;
+  color: #656565;
+  font-size: 10px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.review-panel__save:hover {
+  color: #4f2bd9;
+}
+
+.review-panel__save:focus-visible {
+  outline: 2px solid #4f2bd9;
+  outline-offset: 3px;
+}
+
+.review-panel__save-message {
+  margin: 8px 0 0;
+  color: #18a88c;
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+}

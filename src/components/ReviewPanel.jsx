@@ -28,6 +28,8 @@ function ReviewPanel({
   products,
   quantities,
   onQuantityChange,
+  onSave,
+  saveMessage,
 }) {
   const selectedItems = buildSelectedItems(
     products,
@@ -142,13 +144,16 @@ function ReviewPanel({
           <div className="review-panel__totals">
             {currentTotal > 0 && (
               <span className="review-panel__financing">
-                As low as ${monthlyPayment.toFixed(2)}/mo
+                As low as $
+                {monthlyPayment.toFixed(2)}/mo
               </span>
             )}
 
             <div className="review-panel__total-row">
               {savings > 0 && (
-                <del>${originalTotal.toFixed(2)}</del>
+                <del>
+                  ${originalTotal.toFixed(2)}
+                </del>
               )}
 
               <strong>
@@ -161,7 +166,8 @@ function ReviewPanel({
         {savings > 0 && (
           <p className="review-panel__savings">
             Congrats! You&apos;re saving $
-            {savings.toFixed(2)} on your security bundle!
+            {savings.toFixed(2)} on your security
+            bundle!
           </p>
         )}
 
@@ -173,6 +179,24 @@ function ReviewPanel({
         >
           Checkout
         </button>
+
+        <button
+          className="review-panel__save"
+          type="button"
+          onClick={onSave}
+        >
+          Save my system for later
+        </button>
+
+        {saveMessage && (
+          <p
+            className="review-panel__save-message"
+            role="status"
+            aria-live="polite"
+          >
+            {saveMessage}
+          </p>
+        )}
       </section>
     </aside>
   )
