@@ -92,6 +92,12 @@ Product and step data are stored in JSON files. Product quantities and active va
 
 Saved configurations are stored in the browser using localStorage. Checkout is included as a prototype confirmation only.
 
+## Notes
+
+- Checkout is a prototype confirmation only.
+- Financing is shown as a prototype estimate.
+- Saved configurations use localStorage instead of a database.
+
 ## Author
 
 Adham Elchihi
