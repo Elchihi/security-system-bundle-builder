@@ -66,3 +66,17 @@ export function saveBundle(bundle) {
     return false
   }
 }
+
+export function clearSavedBundle() {
+  try {
+    localStorage.removeItem(STORAGE_KEY)
+    return true
+  } catch (error) {
+    console.error(
+      'Failed to remove the saved bundle:',
+      error,
+    )
+
+    return false
+  }
+}

@@ -8,6 +8,7 @@ import {
   getItemKey,
 } from './utils/bundle'
 import {
+  clearSavedBundle,
   loadSavedBundle,
   saveBundle,
 } from './utils/storage'
@@ -111,6 +112,16 @@ function App() {
     )
   }
 
+  function handleClearSavedBundle() {
+  const didClear = clearSavedBundle()
+
+  setSaveMessage(
+    didClear
+      ? 'Saved system removed. Your current selections have not changed.'
+      : 'The saved system could not be removed. Please try again.',
+  )
+}
+
   return (
     <main className="app">
       <div className="app__layout">
@@ -128,6 +139,7 @@ function App() {
           onQuantityChange={handleQuantityChange}
           onSave={handleSaveBundle}
           saveMessage={saveMessage}
+          onClearSave={handleClearSavedBundle}
         />
       </div>
     </main>

@@ -29,6 +29,7 @@ function ReviewPanel({
   quantities,
   onQuantityChange,
   onSave,
+  onClearSave,
   saveMessage,
 }) {
   const selectedItems = buildSelectedItems(
@@ -180,13 +181,37 @@ function ReviewPanel({
           Checkout
         </button>
 
-        <button
-          className="review-panel__save"
-          type="button"
-          onClick={onSave}
-        >
-          Save my system for later
-        </button>
+        <div className="review-panel__save-actions">
+          <button
+            className="review-panel__save"
+            type="button"
+            onClick={onSave}
+          >
+            Save my system for later
+          </button>
+
+          <button
+            className="review-panel__clear-save"
+            type="button"
+            aria-label="Delete saved system"
+            title="Delete saved system"
+            onClick={onClearSave}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
 
         {saveMessage && (
           <p
