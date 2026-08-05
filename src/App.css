@@ -85,12 +85,43 @@
 }
 
 .accordion-step__icon {
+  position: relative;
   width: 18px;
   height: 18px;
   flex-shrink: 0;
-  display: inline-block;
+  display: inline-grid;
+  place-items: center;
   border: 1px solid #777777;
   border-radius: 50%;
+  background-color: #ffffff;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease;
+}
+
+.accordion-step__icon.is-complete {
+  border-color: #4f2bd9;
+  background-color: #4f2bd9;
+}
+
+.accordion-step__icon.is-complete::after {
+  content: '';
+  width: 7px;
+  height: 4px;
+  border-left: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  transform: translateY(-1px) rotate(-45deg);
+}
+
+.accordion-step__selected {
+  color: #4f2bd9;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.accordion-step__selected:empty {
+  display: none;
 }
 
 .accordion-step__title {

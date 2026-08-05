@@ -7,6 +7,7 @@ function AccordionStep({
   children,
 }) {
   const panelId = `step-panel-${step.id}`
+  const hasSelection = selectedCount > 0
 
   return (
     <section className={`accordion-step${isOpen ? ' is-open' : ''}`}>
@@ -24,23 +25,27 @@ function AccordionStep({
 
           <span className="accordion-step__title-row">
             <span
-              className={`accordion-step__icon accordion-step__icon--${step.icon}`}
+              className={`accordion-step__icon${
+                hasSelection ? ' is-complete' : ''
+              }`}
               aria-hidden="true"
             />
 
-            <span className="accordion-step__title">{step.title}</span>
+            <span className="accordion-step__title">
+              {step.title}
+            </span>
           </span>
         </span>
 
         <span className="accordion-step__status">
-          {isOpen && (
-            <span className="accordion-step__selected">
-              {selectedCount} selected
-            </span>
-          )}
+          <span className="accordion-step__selected">
+            {selectedCount} selected
+          </span>
 
           <span
-            className={`accordion-step__chevron${isOpen ? ' is-open' : ''}`}
+            className={`accordion-step__chevron${
+              isOpen ? ' is-open' : ''
+            }`}
             aria-hidden="true"
           />
         </span>
@@ -51,7 +56,9 @@ function AccordionStep({
         className="accordion-step__panel"
         hidden={!isOpen}
       >
-        <div className="accordion-step__content">{children}</div>
+        <div className="accordion-step__content">
+          {children}
+        </div>
 
         {step.nextLabel && (
           <button
