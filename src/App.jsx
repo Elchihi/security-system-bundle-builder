@@ -1,8 +1,8 @@
-import { useState } from 'react'
-import products from './data/products.json'
+import { useEffect, useState } from 'react'
 import defaultBundle from './data/defaultBundle.json'
 import BundleBuilder from './components/BundleBuilder'
 import ReviewPanel from './components/ReviewPanel'
+import { fetchProducts } from './services/productsApi'
 import {
   createInitialActiveVariants,
   getItemKey,
@@ -14,9 +14,6 @@ import {
 } from './utils/storage'
 import './App.css'
 
-const defaultActiveVariants =
-  createInitialActiveVariants(products)
-
 function createInitialBundle() {
   const savedBundle = loadSavedBundle()
 
@@ -25,10 +22,8 @@ function createInitialBundle() {
       savedBundle?.quantities ??
       { ...defaultBundle.quantities },
 
-    activeVariants: {
-      ...defaultActiveVariants,
-      ...(savedBundle?.activeVariants ?? {}),
-    },
+    activeVariants:
+      savedBundle?.activeVariants ?? {},
   }
 }
 
@@ -37,19 +32,83 @@ function App() {
     createInitialBundle,
   )
 
+  const [products, setProducts] = useState([])
+
+  const [catalogStatus, setCatalogStatus] =
+    useState('loading')
+
+  const [catalogError, setCatalogError] =
+    useState('')
+
+  const [catalogRequestId, setCatalogRequestId] =
+    useState(0)
+
   const [quantities, setQuantities] = useState(
     () => ({ ...initialBundle.quantities }),
   )
 
   const [activeVariants, setActiveVariants] =
     useState(
-      () => ({ ...initialBundle.activeVariants }),
+      () => ({
+        ...initialBundle.activeVariants,
+      }),
     )
 
   const [saveMessage, setSaveMessage] =
     useState('')
 
-  function handleVariantChange(productId, variantId) {
+  useEffect(() => {
+    const controller = new AbortController()
+
+    async function loadProductCatalog() {
+      try {
+        const catalog = await fetchProducts({
+          signal: controller.signal,
+        })
+
+        setProducts(catalog)
+
+        setActiveVariants((currentVariants) => ({
+          ...createInitialActiveVariants(catalog),
+          ...currentVariants,
+        }))
+
+        setCatalogStatus('success')
+      } catch (error) {
+        if (error.name === 'AbortError') {
+          return
+        }
+
+        setCatalogError(
+          error.message ||
+            'Unable to load the product catalog.',
+        )
+
+        setCatalogStatus('error')
+      }
+    }
+
+    loadProductCatalog()
+
+    return () => {
+      controller.abort()
+    }
+  }, [catalogRequestId])
+
+  function handleRetryCatalog() {
+    setCatalogError('')
+    setCatalogStatus('loading')
+
+    setCatalogRequestId(
+      (currentRequestId) =>
+        currentRequestId + 1,
+    )
+  }
+
+  function handleVariantChange(
+    productId,
+    variantId,
+  ) {
     setSaveMessage('')
 
     setActiveVariants((currentVariants) => ({
@@ -113,35 +172,84 @@ function App() {
   }
 
   function handleClearSavedBundle() {
-  const didClear = clearSavedBundle()
+    const didClear = clearSavedBundle()
 
-  setSaveMessage(
-    didClear
-      ? 'Saved system removed. Your current selections have not changed.'
-      : 'The saved system could not be removed. Please try again.',
-  )
-}
+    setSaveMessage(
+      didClear
+        ? 'Saved system removed. Your current selections have not changed.'
+        : 'The saved system could not be removed. Please try again.',
+    )
+  }
 
   return (
     <main className="app">
-      <div className="app__layout">
-        <BundleBuilder
-          products={products}
-          quantities={quantities}
-          activeVariants={activeVariants}
-          onVariantChange={handleVariantChange}
-          onQuantityChange={handleQuantityChange}
-        />
+      {catalogStatus === 'loading' && (
+        <section
+          className="app__catalog-status"
+          role="status"
+          aria-live="polite"
+        >
+          <span
+            className="app__loading-spinner"
+            aria-hidden="true"
+          />
 
-        <ReviewPanel
-          products={products}
-          quantities={quantities}
-          onQuantityChange={handleQuantityChange}
-          onSave={handleSaveBundle}
-          saveMessage={saveMessage}
-          onClearSave={handleClearSavedBundle}
-        />
-      </div>
+          <h1>Loading your security system</h1>
+
+          <p>
+            We&apos;re preparing the product
+            catalog.
+          </p>
+        </section>
+      )}
+
+      {catalogStatus === 'error' && (
+        <section
+          className="app__catalog-status"
+          role="alert"
+        >
+          <h1>We couldn&apos;t load the products</h1>
+
+          <p>{catalogError}</p>
+
+          <button
+            className="app__retry-button"
+            type="button"
+            onClick={handleRetryCatalog}
+          >
+            Try again
+          </button>
+        </section>
+      )}
+
+      {catalogStatus === 'success' && (
+        <div className="app__layout">
+          <BundleBuilder
+            products={products}
+            quantities={quantities}
+            activeVariants={activeVariants}
+            onVariantChange={
+              handleVariantChange
+            }
+            onQuantityChange={
+              handleQuantityChange
+            }
+          />
+
+          <ReviewPanel
+            products={products}
+            quantities={quantities}
+            onQuantityChange={
+              handleQuantityChange
+            }
+            onSave={handleSaveBundle}
+            saveMessage={saveMessage}
+            onClearSave={
+              handleClearSavedBundle
+            }
+          />
+        </div>
+      )}
     </main>
   )
 }
