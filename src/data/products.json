@@ -118,4 +118,70 @@
       }
     ]
   }
+,
+{
+  "id": "wyze-sense-motion-sensor",
+  "stepId": "sensors",
+  "category": "sensors",
+  "name": "Wyze Sense Motion Sensor",
+  "description": "Detect motion throughout your home.",
+  "image": "/images/sensors/wyze-sense-motion-sensor.png",
+  "learnMoreUrl": "#",
+  "badge": null,
+  "price": 29.99,
+  "compareAtPrice": null,
+  "priceLabel": null,
+  "defaultVariantId": null,
+  "maxQuantity": 10,
+  "variants": []
+},
+{
+  "id": "wyze-sense-hub",
+  "stepId": "sensors",
+  "category": "sensors",
+  "name": "Wyze Sense Hub (Required)",
+  "description": "Connects and supports your Wyze Sense devices.",
+  "image": "/images/sensors/wyze-sense-hub.png",
+  "learnMoreUrl": "#",
+  "badge": null,
+  "price": 0,
+  "compareAtPrice": 29.92,
+  "priceLabel": "FREE",
+  "defaultVariantId": null,
+  "maxQuantity": 1,
+  "variants": []
+},
+{
+  "id": "wyze-microsd-card-256gb",
+  "stepId": "protection",
+  "category": "accessories",
+  "name": "Wyze MicroSD Card (256GB)",
+  "description": "Add local storage for continuous and event recording.",
+  "image": "/images/accessories/wyze-microsd-card.png",
+  "learnMoreUrl": "#",
+  "badge": null,
+  "price": 20.98,
+  "compareAtPrice": null,
+  "priceLabel": null,
+  "defaultVariantId": null,
+  "maxQuantity": 10,
+  "variants": []
+},
+{
+  "id": "wyze-cam-unlimited",
+  "stepId": "plan",
+  "category": "plan",
+  "name": "Cam Unlimited",
+  "description": "Unlimited cloud video recording for your Wyze cameras.",
+  "image": "/images/plans/wyze-cam-unlimited.png",
+  "learnMoreUrl": "#",
+  "badge": null,
+  "price": 9.99,
+  "compareAtPrice": 12.99,
+  "priceLabel": null,
+  "billingPeriod": "mo",
+  "defaultVariantId": null,
+  "maxQuantity": 1,
+  "variants": []
+}
 ]
