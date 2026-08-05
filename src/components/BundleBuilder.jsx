@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import steps from '../data/steps.json'
-import products from '../data/products.json'
+import { getProductTotalQuantity } from '../utils/bundle'
 import AccordionStep from './AccordionStep'
 import ProductCard from './ProductCard'
 
-const cameraProducts = products.filter(
-  (product) => product.stepId === 'cameras',
-)
-
-function BundleBuilder() {
+function BundleBuilder({
+  products,
+  quantities,
+  activeVariants,
+  onVariantChange,
+  onQuantityChange,
+}) {
   const [activeStepId, setActiveStepId] = useState(steps[0].id)
 
   function handleToggle(stepId) {
@@ -25,24 +27,40 @@ function BundleBuilder() {
     }
   }
 
+  function getSelectedCount(stepId) {
+    return products.filter(
+      (product) =>
+        product.stepId === stepId &&
+        getProductTotalQuantity(product, quantities) > 0,
+    ).length
+  }
+
   function renderStepContent(step) {
-    if (step.id === 'cameras') {
+    const stepProducts = products.filter(
+      (product) => product.stepId === step.id,
+    )
+
+    if (stepProducts.length === 0) {
       return (
-        <div className="products-grid">
-          {cameraProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-            />
-          ))}
-        </div>
+        <p className="accordion-step__placeholder">
+          {step.title} content will be added here.
+        </p>
       )
     }
 
     return (
-      <p className="accordion-step__placeholder">
-        {step.title} content will be added here.
-      </p>
+      <div className="products-grid">
+        {stepProducts.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            quantities={quantities}
+            activeVariantId={activeVariants[product.id]}
+            onVariantChange={onVariantChange}
+            onQuantityChange={onQuantityChange}
+          />
+        ))}
+      </div>
     )
   }
 
@@ -61,7 +79,7 @@ function BundleBuilder() {
               key={step.id}
               step={step}
               isOpen={isOpen}
-              selectedCount={0}
+              selectedCount={getSelectedCount(step.id)}
               onToggle={() => handleToggle(step.id)}
               onNext={() => handleNext(index)}
             >

@@ -1,0 +1,29 @@
+export function getItemKey(productId, variantId = null) {
+  return variantId ? `${productId}:${variantId}` : productId
+}
+
+export function createInitialActiveVariants(products) {
+  return products.reduce((activeVariants, product) => {
+    if (product.variants.length === 0) {
+      return activeVariants
+    }
+
+    activeVariants[product.id] =
+      product.defaultVariantId ?? product.variants[0].id
+
+    return activeVariants
+  }, {})
+}
+
+export function getProductTotalQuantity(product, quantities) {
+  if (product.variants.length === 0) {
+    return quantities[product.id] ?? 0
+  }
+
+  return product.variants.reduce((total, variant) => {
+    const itemKey = getItemKey(product.id, variant.id)
+    const variantQuantity = quantities[itemKey] ?? 0
+
+    return total + variantQuantity
+  }, 0)
+}
