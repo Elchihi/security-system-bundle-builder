@@ -1,3 +1,35 @@
+.review-panel__header {
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #dedede;
+}
+
+.review-panel__eyebrow {
+  display: block;
+  margin-bottom: 14px;
+  color: #6f6f6f;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.review-panel__header h2 {
+  margin: 0 0 6px;
+}
+
+.review-panel__header p {
+  margin: 0;
+  color: #707070;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.review-panel__sections {
+  display: grid;
+  gap: 20px;
+}
+
 .review-panel__section {
   display: grid;
   gap: 6px;
@@ -25,4 +57,144 @@
   font-size: 12px;
   line-height: 1.5;
   text-align: center;
+}
+
+.review-panel__shipping {
+  margin-top: 20px;
+  padding: 14px 0;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid #dedede;
+  border-bottom: 1px solid #dedede;
+}
+
+.review-panel__shipping img {
+  width: 42px;
+  height: 42px;
+  padding: 7px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  object-fit: contain;
+}
+
+.review-panel__shipping-name {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.review-panel__shipping-price {
+  display: grid;
+  justify-items: end;
+  gap: 2px;
+}
+
+.review-panel__shipping-price del {
+  color: #777777;
+  font-size: 8px;
+}
+
+.review-panel__shipping-price strong {
+  color: #4f2bd9;
+  font-size: 10px;
+}
+
+.review-panel__summary {
+  padding-top: 18px;
+}
+
+.review-panel__summary-main {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.review-panel__guarantee {
+  width: 84px;
+  height: 84px;
+  object-fit: contain;
+}
+
+.review-panel__totals {
+  display: grid;
+  justify-items: end;
+  gap: 10px;
+}
+
+.review-panel__financing {
+  padding: 4px 8px;
+  border-radius: 3px;
+  background-color: #4f2bd9;
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.review-panel__total-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.review-panel__total-row del {
+  color: #6f6f6f;
+  font-size: 14px;
+}
+
+.review-panel__total-row strong {
+  color: #4f2bd9;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.review-panel__savings {
+  margin: 14px 0 8px;
+  color: #18a88c;
+  font-size: 10px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.review-panel__checkout {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 3px;
+  background-color: #4f2bd9;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.review-panel__checkout:hover {
+  background-color: #3f20c4;
+}
+
+.review-panel__checkout:disabled {
+  background-color: #b8b1d7;
+  cursor: not-allowed;
+}
+
+.review-panel__checkout:focus-visible {
+  outline: 3px solid rgba(79, 43, 217, 0.35);
+  outline-offset: 3px;
+}
+
+@media (max-width: 420px) {
+  .review-panel__summary-main {
+    align-items: center;
+  }
+
+  .review-panel__guarantee {
+    width: 72px;
+    height: 72px;
+  }
+
+  .review-panel__total-row strong {
+    font-size: 23px;
+  }
 }

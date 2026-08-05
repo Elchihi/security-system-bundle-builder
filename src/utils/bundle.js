@@ -49,6 +49,9 @@ export function buildSelectedItems(products, quantities) {
           image: product.image,
           price: product.price,
           compareAtPrice: product.compareAtPrice,
+          priceLabel: product.priceLabel ?? null,
+          billingPeriod: product.billingPeriod ?? null,
+          maxQuantity: product.maxQuantity ?? 10,
           quantity,
         },
       ]
@@ -73,9 +76,53 @@ export function buildSelectedItems(products, quantities) {
           image: product.image,
           price: product.price,
           compareAtPrice: product.compareAtPrice,
+          priceLabel: product.priceLabel ?? null,
+          billingPeriod: product.billingPeriod ?? null,
+          maxQuantity: product.maxQuantity ?? 10,
           quantity,
         },
       ]
     })
   })
+}
+
+export function calculateBundleTotals(selectedItems) {
+  const totals = selectedItems.reduce(
+    (currentTotals, item) => {
+      const currentLineTotal = item.price * item.quantity
+
+      const originalUnitPrice =
+        item.compareAtPrice ?? item.price
+
+      const originalLineTotal =
+        originalUnitPrice * item.quantity
+
+      return {
+        currentTotal:
+          currentTotals.currentTotal + currentLineTotal,
+        originalTotal:
+          currentTotals.originalTotal + originalLineTotal,
+      }
+    },
+    {
+      currentTotal: 0,
+      originalTotal: 0,
+    },
+  )
+
+  const currentTotal = Number(
+    totals.currentTotal.toFixed(2),
+  )
+
+  const originalTotal = Number(
+    totals.originalTotal.toFixed(2),
+  )
+
+  return {
+    currentTotal,
+    originalTotal,
+    savings: Number(
+      (originalTotal - currentTotal).toFixed(2),
+    ),
+  }
 }
