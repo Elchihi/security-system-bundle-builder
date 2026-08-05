@@ -1,7 +1,11 @@
 :root {
-  font-family: Arial, Helvetica, sans-serif;
-  color: #1f1f1f;
-  background-color: #f7f7f7;
+  font-family:
+    Inter,
+    Arial,
+    Helvetica,
+    sans-serif;
+  color: #171717;
+  background-color: #ffffff;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
