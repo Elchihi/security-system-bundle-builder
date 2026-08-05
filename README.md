@@ -1,48 +1,97 @@
 # Security System Bundle Builder
 
-A responsive React prototype for configuring a personalized home security system.
+A responsive React application for building a customized home security system based on the provided Figma design.
 
-The application recreates the provided Figma design as a four-step bundle builder with a synchronized live review panel.
+## Live Demo
+
+https://security-system-bundle-builder-nine.vercel.app
 
 ## Features
 
 - Four-step accordion bundle builder
-- Product catalog rendered from JSON data
-- Independent quantities for every product variant
-- Synchronized quantity controls between product cards and the review panel
-- Selected-product counters for every bundle step
-- Pre-populated default configuration matching the provided design
-- Dynamic original total, current total, and savings calculations
-- Responsive desktop, tablet, and mobile layouts
-- Client-side persistence using localStorage
-- Ability to remove a previously saved configuration
-- Checkout confirmation placeholder
-- Accessible buttons, labels, focus states, and accordion attributes
+- Product variants with separate quantities
+- Live review panel synchronized with product cards
+- Dynamic totals and savings
+- Default bundle configuration
+- Save and restore using localStorage
+- Responsive desktop and mobile layouts
+- Express API with loading, error, and retry states
 
-## Bundle Steps
+## Tech Stack
 
-1. Choose your cameras
-2. Choose your plan
-3. Choose your sensors
-4. Add extra protection
+- React
+- Vite
+- JavaScript
+- CSS
+- Express
+- Vercel Serverless Functions
 
-## Variant Behavior
+## Run Locally
 
-Products with color options track every variant independently.
-
-For example, a shopper can add two white cameras, switch to black, and add one black camera. Both variants remain selected and appear as separate items in the review panel.
-
-## Getting Started
-
-### Requirements
-
-- Node.js
-- npm
-
-### Installation
+Clone the repository and install the dependencies:
 
 ```bash
 git clone https://github.com/Elchihi/security-system-bundle-builder.git
 cd security-system-bundle-builder
 npm install
+```
+
+Start the API:
+
+```bash
+npm run api:dev
+```
+
+In another terminal, start the frontend:
+
+```bash
 npm run dev
+```
+
+Open:
+
+```text
+http://localhost:5173
+```
+
+## Production Build
+
+```bash
+npm run build
+npm start
+```
+
+The production application will run on:
+
+```text
+http://localhost:3001
+```
+
+## API Endpoints
+
+```text
+GET /api
+GET /api/health
+GET /api/products
+```
+
+## Available Scripts
+
+```bash
+npm run dev
+npm run api
+npm run api:dev
+npm run build
+npm run lint
+npm start
+```
+
+## Project Notes
+
+Product and step data are stored in JSON files. Product quantities and active variants are managed from the main application state so the builder and review panel stay synchronized.
+
+Saved configurations are stored in the browser using localStorage. Checkout is included as a prototype confirmation only.
+
+## Author
+
+Adham Elchihi
