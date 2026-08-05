@@ -1,6 +1,12 @@
 import { useState } from 'react'
 import steps from '../data/steps.json'
+import products from '../data/products.json'
 import AccordionStep from './AccordionStep'
+import ProductCard from './ProductCard'
+
+const cameraProducts = products.filter(
+  (product) => product.stepId === 'cameras',
+)
 
 function BundleBuilder() {
   const [activeStepId, setActiveStepId] = useState(steps[0].id)
@@ -17,6 +23,27 @@ function BundleBuilder() {
     if (nextStep) {
       setActiveStepId(nextStep.id)
     }
+  }
+
+  function renderStepContent(step) {
+    if (step.id === 'cameras') {
+      return (
+        <div className="products-grid">
+          {cameraProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+            />
+          ))}
+        </div>
+      )
+    }
+
+    return (
+      <p className="accordion-step__placeholder">
+        {step.title} content will be added here.
+      </p>
+    )
   }
 
   return (
@@ -38,9 +65,7 @@ function BundleBuilder() {
               onToggle={() => handleToggle(step.id)}
               onNext={() => handleNext(index)}
             >
-              <p className="accordion-step__placeholder">
-                {step.title} content will be added here.
-              </p>
+              {renderStepContent(step)}
             </AccordionStep>
           )
         })}
