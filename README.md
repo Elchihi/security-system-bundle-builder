@@ -1,16 +1,48 @@
-# React + Vite
+# Security System Bundle Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive React prototype for configuring a personalized home security system.
 
-Currently, two official plugins are available:
+The application recreates the provided Figma design as a four-step bundle builder with a synchronized live review panel.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- Four-step accordion bundle builder
+- Product catalog rendered from JSON data
+- Independent quantities for every product variant
+- Synchronized quantity controls between product cards and the review panel
+- Selected-product counters for every bundle step
+- Pre-populated default configuration matching the provided design
+- Dynamic original total, current total, and savings calculations
+- Responsive desktop, tablet, and mobile layouts
+- Client-side persistence using localStorage
+- Ability to remove a previously saved configuration
+- Checkout confirmation placeholder
+- Accessible buttons, labels, focus states, and accordion attributes
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Bundle Steps
 
-## Expanding the ESLint configuration
+1. Choose your cameras
+2. Choose your plan
+3. Choose your sensors
+4. Add extra protection
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Variant Behavior
+
+Products with color options track every variant independently.
+
+For example, a shopper can add two white cameras, switch to black, and add one black camera. Both variants remain selected and appear as separate items in the review panel.
+
+## Getting Started
+
+### Requirements
+
+- Node.js
+- npm
+
+### Installation
+
+```bash
+git clone https://github.com/Elchihi/security-system-bundle-builder.git
+cd security-system-bundle-builder
+npm install
+npm run dev
