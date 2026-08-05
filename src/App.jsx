@@ -6,10 +6,13 @@ import {
   createInitialActiveVariants,
   getItemKey,
 } from './utils/bundle'
+import defaultBundle from './data/defaultBundle.json'
 import './App.css'
 
 function App() {
-  const [quantities, setQuantities] = useState({})
+  const [quantities, setQuantities] = useState(
+  () => ({ ...defaultBundle.quantities }),
+)
 
   const [activeVariants, setActiveVariants] = useState(() =>
     createInitialActiveVariants(products),
@@ -22,22 +25,31 @@ function App() {
     }))
   }
 
-  function handleQuantityChange(productId, variantId, nextQuantity) {
-    const itemKey = getItemKey(productId, variantId)
-    const safeQuantity = Math.max(0, nextQuantity)
+ function handleQuantityChange(productId, variantId, nextQuantity) {
+  const product = products.find(
+    (currentProduct) => currentProduct.id === productId,
+  )
 
-    setQuantities((currentQuantities) => {
-      const nextQuantities = { ...currentQuantities }
+  const maxQuantity = product?.maxQuantity ?? 10
+  const safeQuantity = Math.min(
+    maxQuantity,
+    Math.max(0, nextQuantity),
+  )
 
-      if (safeQuantity === 0) {
-        delete nextQuantities[itemKey]
-      } else {
-        nextQuantities[itemKey] = safeQuantity
-      }
+  const itemKey = getItemKey(productId, variantId)
 
-      return nextQuantities
-    })
-  }
+  setQuantities((currentQuantities) => {
+    const nextQuantities = { ...currentQuantities }
+
+    if (safeQuantity === 0) {
+      delete nextQuantities[itemKey]
+    } else {
+      nextQuantities[itemKey] = safeQuantity
+    }
+
+    return nextQuantities
+  })
+}
 
   return (
     <main className="app">
