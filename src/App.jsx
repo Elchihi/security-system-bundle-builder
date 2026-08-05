@@ -50,7 +50,11 @@ function App() {
           onQuantityChange={handleQuantityChange}
         />
 
-        <ReviewPanel />
+        <ReviewPanel
+          products={products}
+          quantities={quantities}
+          onQuantityChange={handleQuantityChange}
+        />
       </div>
     </main>
   )

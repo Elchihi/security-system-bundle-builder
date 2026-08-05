@@ -1,0 +1,28 @@
+.review-panel__section {
+  display: grid;
+  gap: 6px;
+}
+
+.review-panel__section-title {
+  margin: 0;
+  color: #6f6f6f;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.review-panel__items {
+  display: grid;
+}
+
+.review-panel__empty {
+  margin: 0;
+  padding: 24px 12px;
+  border-radius: 6px;
+  background-color: #f5f5f5;
+  color: #737373;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
