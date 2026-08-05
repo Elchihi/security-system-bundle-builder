@@ -13,6 +13,14 @@ function ReviewItem({ item, onQuantityChange }) {
     ? `${item.name} ${item.variantLabel}`
     : item.name
 
+  const displayedPrice = item.priceLabel
+    ? item.priceLabel
+    : `$${linePrice.toFixed(2)}${
+        item.billingPeriod
+          ? `/${item.billingPeriod}`
+          : ''
+      }`
+
   function handleDecrease() {
     onQuantityChange(
       item.productId,
@@ -59,7 +67,7 @@ function ReviewItem({ item, onQuantityChange }) {
             )}
 
             <span className="review-item__price">
-              ${linePrice.toFixed(2)}
+              {displayedPrice}
             </span>
           </div>
         </div>
@@ -67,6 +75,7 @@ function ReviewItem({ item, onQuantityChange }) {
         <QuantityStepper
           value={item.quantity}
           label={quantityLabel}
+          max={item.maxQuantity}
           onDecrease={handleDecrease}
           onIncrease={handleIncrease}
         />

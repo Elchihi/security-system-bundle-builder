@@ -127,6 +127,7 @@ function ProductCard({
                 ? ` ${selectedVariantId}`
                 : ''
             }`}
+            max={product.maxQuantity ?? 10}
             onDecrease={handleDecrease}
             onIncrease={handleIncrease}
           />

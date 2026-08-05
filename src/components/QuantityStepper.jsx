@@ -5,6 +5,8 @@ function QuantityStepper({
   label,
   onDecrease,
   onIncrease,
+  min = 0,
+  max = 10,
 }) {
   return (
     <div
@@ -15,7 +17,7 @@ function QuantityStepper({
         className="quantity-stepper__button"
         type="button"
         aria-label={`Decrease ${label} quantity`}
-        disabled={value === 0}
+        disabled={value <= min}
         onClick={onDecrease}
       >
         −
@@ -32,6 +34,7 @@ function QuantityStepper({
         className="quantity-stepper__button"
         type="button"
         aria-label={`Increase ${label} quantity`}
+        disabled={value >= max}
         onClick={onIncrease}
       >
         +
